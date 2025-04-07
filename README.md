@@ -40,7 +40,6 @@ The LOF algorithm was selected after evaluating four unsupervised models on a da
 - Hyperparameters: `n_neighbors=80`, `contamination=0.05`, `metric='manhattan'`, `novelty=True`.
 
 ---
-
 ## API Development
 ### FastAPI Implementation
 - **Endpoints**: RESTful endpoints for real-time inference, returning JSON-formatted predictions.
@@ -52,7 +51,6 @@ The LOF algorithm was selected after evaluating four unsupervised models on a da
 - **Azure Container Registry (ACR)**: Manages version-controlled Docker images with vulnerability assessments.
 
 ---
-
 ## Integration with SAP HANA Fiori
 1. **Data Flow**:
    - SAP HANA preprocesses data and exposes it via OData services.
