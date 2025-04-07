@@ -16,7 +16,7 @@ The project enhances SAP HANA's anomaly detection capabilities by integrating a 
 
 ---
 
-# Key Features
+## Key Features
 - **Anomaly Detection**: Uses scikit-learn's LOF algorithm for identifying outliers in transactional sales data.
 - **Custom API**: FastAPI backend for seamless communication between SAP Fiori and ML models.
 - **Cloud Deployment**: Containerized using Docker and deployed on AKS for scalability.
@@ -25,7 +25,7 @@ The project enhances SAP HANA's anomaly detection capabilities by integrating a 
 
 ---
 
-# Model Selection
+## Model Selection
 The LOF algorithm was selected after evaluating four unsupervised models on a dataset of 5,000 sales transactions (12 features, split 80-20 for training/testing):
 
 | Model               | Accuracy | Precision | Recall | F1-Score | Execution Time |
