@@ -6,15 +6,12 @@ This repository contains the implementation of a machine learning (ML)-powered a
 The solution leverages the Local Outlier Factor (LOF) algorithm for real-time anomaly detection, deployed on Azure Kubernetes Service (AKS) for scalability and high availability. 
 Below is a detailed overview of the project.
 
----
-
 ## Overview
 The project enhances SAP HANA's anomaly detection capabilities by integrating a custom ML model via a FastAPI-based RESTful API. Key objectives include:
 - Overcoming limitations of SAP's Predictive Analysis Library (PAL) through customizable ML integration.
 - Enabling real-time decision-making with low-latency anomaly detection.
 - Ensuring scalability and security via Azure cloud deployment.
 
----
 
 ## Key Features
 - **Anomaly Detection**: Uses scikit-learn's LOF algorithm for identifying outliers in transactional sales data.
@@ -23,23 +20,21 @@ The project enhances SAP HANA's anomaly detection capabilities by integrating a 
 - **SAP Integration**: Real-time interaction via OData services and SAP Fiori web interface.
 - **Security**: HTTPS encryption, token-based authentication, and role-based access control.
 
----
 
 ## Model Selection
-The LOF algorithm was selected after evaluating four unsupervised models on a dataset of 5,000 sales transactions (12 features, split 80-20 for training/testing):
+The LOF algorithm was selected after evaluating four unsupervised models on a dataset of 5,000 sales transactions (12 features, using 10-fold cross validation):
 
 | Model               | Accuracy | Precision | Recall | F1-Score | Execution Time |
 |---------------------|----------|-----------|--------|----------|----------------|
-| **Local Outlier Factor** | **0.994**    | 0.926     | **0.962** | **0.943** | **0.10s**      |
-| Isolation Forest    | 0.990     | 0.938     | 0.865  | 0.900     | 0.37s          |
-| Robust Covariance   | 0.989     | 0.902     | 0.884  | 0.893     | 1.20s          |
-| One-Class SVM       | 0.973     | 0.712     | 0.808  | 0.757     | 0.17s          |
+| **Local Outlier Factor** | **0.993**    | **0.927**     | **0.932** | **0.928** | 7.45s      |
+| Isolation Forest    | 0.986     | 0.889     | 0.864  | 0.865     | 4.11s          |
+| Robust Covariance   | 0.987     | 0.868     | 0.876  | 0.871     | 10.66s          |
+| One-Class SVM       | 0.972     | 0.699     | 0.784  | 0.737     | **1.34s**          |
 
 **Selection Rationale**:
-- **LOF** outperformed others in recall (96.2%) and speed (0.10s), critical for minimizing false negatives in fraud detection and system monitoring.
+- **LOF** outperformed others with recall (93.2%), critical for minimizing false negatives in fraud detection and system monitoring.
 - Hyperparameters: `n_neighbors=80`, `contamination=0.05`, `metric='manhattan'`, `novelty=True`.
 
----
 ## API Development
 ### FastAPI Implementation
 - **Endpoints**: RESTful endpoints for real-time inference, returning JSON-formatted predictions.
@@ -50,7 +45,6 @@ The LOF algorithm was selected after evaluating four unsupervised models on a da
 - **Docker**: Encapsulates the FastAPI application and dependencies for consistent deployment.
 - **Azure Container Registry (ACR)**: Manages version-controlled Docker images with vulnerability assessments.
 
----
 ## Integration with SAP HANA Fiori
 1. **Data Flow**:
    - SAP HANA preprocesses data and exposes it via OData services.
@@ -65,7 +59,6 @@ The LOF algorithm was selected after evaluating four unsupervised models on a da
    - `mta.yaml`: Assigns user-provided service credentials.
    - `xs-app.json`: Routes API calls within SAP Fiori.
 
----
 
 ## Deployment
 ### Azure Infrastructure
@@ -75,7 +68,6 @@ The LOF algorithm was selected after evaluating four unsupervised models on a da
   - **Azure Active Directory (AAD)**: Token-based authentication for API access.
 - **CI/CD Pipelines**: Automated updates via ACR integration.
 
----
 
 ## Getting Started
 ### Prerequisites
